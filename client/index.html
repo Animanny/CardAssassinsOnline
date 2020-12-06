@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Jost&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <div id="header">
+        <h1 style="text-align: center;">Card Assassins</h1>
+    </div>
+
+    <div id="login">
+        <div id="name">
+            <h2>Enter your name:</h2>
+            <input id="nameInput">
+        </div>
+        <div id="host-wrapper" style="grid-column-start:2; grid-row-start: 3; height:100%; width:100%;">
+            <button onclick="changeHostToInput()">
+                Host Game
+            </button>
+            <p id="createError"></p>
+        </div>
+        <div id="join-wrapper" style="grid-column-start:4; grid-row-start: 3; height:100%; width: 100%;">
+            <button onclick="changeJoinToInput()">
+                Join Game
+            </button>
+            <p id="joinError"></p>
+        </div>
+
+    </div>
+
+    <div id="waitForStart">
+        <center>
+            <h1 id="roomCode">Room Code</h1>
+
+            <h3>Waiting for others...</h3>
+            <div id="playerList">
+                <h3 id="player"></h3>
+            </div>
+
+            <div id="startButton">
+                <button onclick="startGame()">
+                    Start Game
+                </button>
+            </div>
+        </center>
+    </div>
+
+    <div id="gameBoard">
+        <div id="notepad">
+            <div id="notepadContent">
+                <h2>Hello Agent <span id="agent">Vaibhav</span>,</h2>
+                <h3>your objective is</br> to get your target:</h3>
+                <h2 id="target"></h2>
+                <h2 style="grid-column-start: 1; grid-column-end: 4;">To say the following words:</h2>
+                <div id="words">
+                    <label id="word1" class="container">
+                        <input type="checkbox">
+                        boop
+                        <span class="checkmark"></span>
+                    </label>
+                    <label id="word2" class="container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label id="word3" class="container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>

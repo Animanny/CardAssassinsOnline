@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Jost&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <div id="header">
+        <h1 style="text-align: center;">Card Assassins</h1>
+    </div>
+
+    <div id="login">
+        <div id="name">
+            <h2>Enter your name:</h2>
+            <input id="nameInput">
+        </div>
+        <div id="host-wrapper" style="grid-column-start:2; grid-row-start: 3; height:100%; width:100%;">
+            <button onclick="changeHostToInput()">
+                Host Game
+            </button>
+        </div>
+        <div id="join-wrapper" style="grid-column-start:4; grid-row-start: 3; height:100%; width: 100%;">
+            <button onclick="changeJoinToInput()">
+                Join Game
+            </button>
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
