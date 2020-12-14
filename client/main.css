@@ -1,8 +1,13 @@
-h1, h2, h3, h4, h5, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
     font-family: 'Jost', sans-serif;
 }
 
-#header{
+#header {
     margin-top: 50px;
 }
 
@@ -10,24 +15,24 @@ h1, h2, h3, h4, h5, p {
     justify-items: center;
     align-items: center;
     display: grid;
-    height:85vh;
+    height: 80vh;
     grid-template-columns: 20% 20% 20% 20% 20%;
     grid-template-rows: 20% 20% 20% 20% 20%;
 }
 
-#name{
+#name {
     text-align: center;
     grid-column-start: 3;
 }
 
 #name input {
-    width:100%;
+    width: 100%;
     height: 35px;
     font-size: 30px;
     border: 3px solid #555;
 }
 
-button{
+button {
     height: 75%;
     width: 100%;
     border: 3px solid #555;
@@ -36,39 +41,34 @@ button{
     grid-row-start: 3;
 }
 
-#startButton { 
+#startButton {
     width: 30%;
 }
 
-#playerList{
-    height:500px;
+#playerList {
+    height: 250px;
 }
 
 #waitForStart {
     display: none;
 }
 
-#gameBoard{
+#gameBoard {
     display: none;
-    height:70vh;
-    grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-    grid-template-columns:  10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-    justify-items: center;
-    align-items: center;
+    height: 100%;
 }
 
-#notepad{
-    grid-column-start: 4; grid-column-end: 8;grid-row-start: 2; grid-row-end: 8;
+#notepad {
     height: 100%;
-    width: 100%;
+    width: 60%;
+    margin-left: 20%;
     border: black 5px solid;
 }
 
-#notepadContent{
-    display: grid;
+#notepadContent {
+    display: block;
     grid-template-rows: 30% 30% 40%;
     grid-template-columns: 30% 30% 30%;
-    margin-left: 5%;
     height: 100%;
     width: 100%;
     justify-items: center;
@@ -76,80 +76,49 @@ button{
     text-align: center;
 }
 
+#notepadHeader {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+
 /* The container */
+
 .container {
     display: block;
     position: relative;
-    padding-left: 35px;
     margin-bottom: 35px;
-    cursor: pointer;
     font-size: 22px;
     font-family: 'Gochi Hand', cursive;
-    text-decoration-style: dotted;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  /* Hide the browser's default checkbox */
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-  
-  /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
-    background-color: #2196F3;
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the checkmark/indicator */
-  .container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
+}
 
-  #words{
-      justify-items: center;
-      align-items: center;
-      grid-column-start: 1;
-      grid-column-end: 4;
-      grid-row-start: 3;
-  }
+#words {
+    justify-items: center;
+    align-items: center;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+}
+
+#execute {
+    width: 200px;
+    height: 70px;
+    margin-bottom: 30px;
+    border: 3px solid rgb(0, 189, 0);
+    display: inline-flex;
+    font-size: large;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#confirm {
+    display: none;
+    width: 200px;
+    height: 70px;
+    margin-bottom: 30px;
+    border: 3px solid rgb(189, 0, 0);
+    font-size: large;
+    align-items: center;
+    justify-content: space-evenly;
+}
