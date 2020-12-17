@@ -1,0 +1,18 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-family: 'Jost', sans-serif;
+    color: black;
+}
+
+#header {
+    text-decoration: underline black;
+}
+
+body {
+    width: 500px;
+    margin-left: calc((100% - 500px)/2);
+}

@@ -95,6 +95,11 @@ io.on('connection', (socket) => {
         let executedSocket = rooms[roomID]["users"][executed]
         let agentSocket = rooms[roomID]["users"][agent]
 
+        if (executedsTarget == agent) {
+            agentSocket.emit("winner", agent);
+            executedSocket.emit("executed", (agent))
+        }
+
         let mission = {
             "target": executedsTarget,
             "words": executedWords

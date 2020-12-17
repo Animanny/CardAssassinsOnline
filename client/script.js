@@ -101,13 +101,13 @@ socket.on("mission", (mission) => {
 
 function changeHostToInput() {
     document.getElementById("host-wrapper").innerHTML =
-        '<h3>Enter a Room ID</h3><input id="hostID" onkeydown="createRoom(this)" style=" width:100%; height: 35px; font-size: 30px; border: 3px solid #555;" type="text" /><p id="createError"></p>';
+        '<h3 style="margin-top:0px;">Enter a Room ID</h3><input id="hostID" onkeydown="createRoom(this)" style=" width:100%; height: 35px; font-size: 30px; border: 3px solid #555;" type="text" /><p id="createError"></p>';
     document.getElementById("hostID").focus();
 }
 
 function changeJoinToInput() {
     document.getElementById("join-wrapper").innerHTML =
-        '<h3>Enter a Room ID</h3><input id="joinID" onkeydown="joinRoom(this)" style=" width:100%; height: 35px; font-size: 30px; border: 3px solid #555;" type="text" /><p id="joinError"></p>';
+        '<h3 style="margin-top:0px;">Enter a Room ID</h3><input id="joinID" onkeydown="joinRoom(this)" style=" width:100%; height: 35px; font-size: 30px; border: 3px solid #555;" type="text" /><p id="joinError"></p>';
     document.getElementById("joinID").focus();
 }
 
@@ -125,5 +125,11 @@ function execution() {
 socket.on('executed', (killer) => {
     document.querySelector("#execute").style.display = "none";
     document.querySelector("#confirm").style.display = "none";
-    document.querySelector("#notepadContent").innerHTML = "<h3>You've been hit by, you've been struck by</h3><h3>Agent " + killer + "</h3><h3>Thanks for playing!</h3>";
+    document.querySelector("#notepadContent").innerHTML = "<h3>You've been hit by, you've been struck by</h3><h3>Agent " + killer + "</h3><h3><a style='color:black; text-decoration: underline black;' href='/'>Play Again</a></h3>";
+})
+
+socket.on('winner', (agent) => {
+    document.querySelector("#execute").style.display = "none";
+    document.querySelector("#confirm").style.display = "none";
+    document.querySelector("#notepadContent").innerHTML = "<h3>Congratulations " + agent + ", you've proven yourself as the top agent 😎</h3><h3> Please use this opportunity to flex on your friends!</h3><h3><a style = 'color:black; text-decoration: underline black;' href = '/'>Play Again</a></h3> ";
 })
