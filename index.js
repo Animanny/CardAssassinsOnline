@@ -23,9 +23,9 @@ rooms = {
 
 var wordList = ["song", "furniture", "cemetery", "acoustics", "moon", "lip", "star", "direction", "pleasure", "cactus", "scarf", "attack", "riddle", "spy", "mass", "face", "thunder", "neck", "book", "oranges", "selection", "talk", "force", "stage", "protest", "worm", "swing", "dog", "town", "respect", "religion", "yam", "toys", "rule", "mine", "toad", "slope", "zebra", "seed", "flesh", "stretch", "nut", "form", "voyage", "truck", "stem", "show", "butter", "elbow", "cannon", "week", "recess", "chance", "hydrant", "scissors", "country", "error", "crown", "thought", "care", "vase", "system", "sky", "snakes", "earthquake", "idea", "income", "profit", "wood", "laborer", "hook", "interest", "monkey", "top", "stick", "oil", "experience", "quiet", "wave", "lamp", "title", "question", "drawer", "snow", "boy", "believe", "underwear", "wash", "airport", "cover", "wax", "bulb", "hole", "hat", "page", "rhythm", "sign", "winter", "nerve", "sweater"];
 app.set('view cache', false);
-app.use(express.static(__dirname + "/client"), {
+app.use(express.static(__dirname + "/client", {
     extensions: ['html', 'htm']
-});
+}));
 
 io.on('connection', (socket) => {
 
