@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Jost&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="main.css">
@@ -21,13 +22,13 @@
             <h2>Enter your name:</h2>
             <input id="nameInput" onkeyup="changeColourBack()">
         </div>
-        <div id="host-wrapper" style="grid-column-start:2; grid-row-start: 3; height:100%; width:100%;">
+        <div id="host-wrapper">
             <button onclick="changeHostToInput()">
                 Host Game
             </button>
             <p id="createError"></p>
         </div>
-        <div id="join-wrapper" style="grid-column-start:4; grid-row-start: 3; height:100%; width: 100%;">
+        <div id="join-wrapper">
             <button onclick="changeJoinToInput()">
                 Join Game
             </button>
