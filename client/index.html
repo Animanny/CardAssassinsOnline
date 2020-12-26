@@ -39,11 +39,23 @@
 
     <div id="waitForStart">
         <center>
-            <h1 id="roomCode">Room Code</h1>
+            <h2 id="roomCode">Room Code</h2>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 50px;">
+                <div style="width: 45%;">
+                    <h3>Waiting for others...</h3>
+                    <div id="playerList">
+                        <h3 id="player"></h3>
+                    </div>
+                </div>
+                <div style="width: 45%;">
+                    <a href="./howto" style="color: black;" target="_blank">
+                        <h3 style="text-decoration: underline;">How to play</h3>
+                    </a>
+                    <p>You'll get 3 words and a target</p>
+                    <p>Get your target to say one of your words outloud</p>
+                    <p style="max-width: 400px;">If they say it, confirm your kill and you'll get their target and their words. Last one standing wins!</p>
+                </div>
 
-            <h3>Waiting for others...</h3>
-            <div id="playerList">
-                <h3 id="player"></h3>
             </div>
 
             <div id="startButton">

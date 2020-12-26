@@ -28,7 +28,7 @@ p {
 }
 
 #name input {
-    width: 100%;
+    width: 95%;
     height: 35px;
     font-size: 30px;
     margin-left: -1.5px;
@@ -168,7 +168,7 @@ button {
         grid-column-end: 5;
     }
     #name input {
-        width: 100%;
+        width: 95%;
         height: 35px;
         font-size: 30px;
         margin-left: -1.5px;
