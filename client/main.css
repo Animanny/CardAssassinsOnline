@@ -181,6 +181,7 @@ button {
         background-color: white;
         font-size: 25px;
         grid-row-start: 3;
+        text-align: center;
     }
     #host-wrapper {
         grid-column-start: 1;
