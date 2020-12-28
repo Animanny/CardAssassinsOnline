@@ -30,10 +30,13 @@ app.use(express.static(__dirname + "/client", {
 io.on('connection', (socket) => {
 
     socket.on('createRoom', (room) => {
-        if (room["roomID"] in rooms) {
-            socket.emit("roomCreated", false);
-            return;
-        }
+        do {
+            room["roomID"] = makeid()
+        } while (room["roomID"] in rooms)
+        // if (room["roomID"] in rooms) {
+        //     socket.emit("roomCreated", false);
+        //     return;
+        // }
         rooms[room["roomID"]] = { "users": {}, "players": [] }
         socket.join(room["roomID"])
             //users[room["name"]] = socket;
@@ -99,7 +102,9 @@ io.on('connection', (socket) => {
 
         if (executedsTarget == agent) {
             agentSocket.emit("winner", agent);
-            executedSocket.emit("executed", (agent))
+            if (executedSocket) {
+                executedSocket.emit("executed", (agent))
+            }
         }
 
         let mission = {
@@ -111,7 +116,9 @@ io.on('connection', (socket) => {
         rooms[roomID]["missions"][agent]["words"].push(...executedWords)
 
         agentSocket.emit("mission", mission);
-        executedSocket.emit("executed", (agent))
+        if (executedSocket) {
+            executedSocket.emit("executed", (agent))
+        }
     })
 
     socket.on('disconnecting', () => {
@@ -171,4 +178,14 @@ function shuffle(array) {
 
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
+}
+
+function makeid() {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var charactersLength = characters.length;
+    for (var i = 0; i < 6; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }

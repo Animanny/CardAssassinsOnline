@@ -7,17 +7,28 @@ function changeColourBack(ele) {
 }
 
 function createRoom(ele) {
-    if (event.key === "Enter") {
-        if (document.getElementById("nameInput").value != "") {
-            let roomName = {
-                name: document.getElementById("nameInput").value,
-                roomID: document.getElementById("hostID").value,
-            };
-            socket.emit("createRoom", roomName);
-        } else {
-            document.querySelector("#nameInput").style.border =
-                "3px solid #FC100D";
-        }
+    // if (event.key === "Enter") {
+    //     if (document.getElementById("nameInput").value != "") {
+    //         let roomName = {
+    //             name: document.getElementById("nameInput").value,
+    //             roomID: document.getElementById("hostID").value,
+    //         };
+    //         socket.emit("createRoom", roomName);
+    //     } else {
+    //         document.querySelector("#nameInput").style.border =
+    //             "3px solid #FC100D";
+    //     }
+    // }
+
+    if (document.getElementById("nameInput").value != "") {
+        let roomName = {
+            name: document.getElementById("nameInput").value,
+            roomID: "",
+        };
+        socket.emit("createRoom", roomName);
+    } else {
+        document.querySelector("#nameInput").style.border =
+            "3px solid #FC100D";
     }
 }
 
@@ -131,5 +142,5 @@ socket.on('executed', (killer) => {
 socket.on('winner', (agent) => {
     document.querySelector("#execute").style.display = "none";
     document.querySelector("#confirm").style.display = "none";
-    document.querySelector("#notepadContent").innerHTML = "<h3>Congratulations " + agent + ", you've proven yourself as the top agent 😎</h3><h3> Please use this opportunity to flex on your friends!</h3><h3><a style = 'color:black; text-decoration: underline black;' href = '/'>Play Again</a></h3> ";
+    document.querySelector("#notepadContent").innerHTML = "<h3 style='padding: 0px 50px 0px 50px;'>Congratulations Agent " + agent + ", you've proven yourself as the top agent 😎</h3><h3 style='padding: 0px 50px 0px 50px;'> Please use this opportunity to flex on your friends!</h3><h3><a style = 'color:black; text-decoration: underline black;' href = '/'>Play Again</a></h3> ";
 })

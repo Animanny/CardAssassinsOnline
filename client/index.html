@@ -32,10 +32,10 @@
     <div id="login">
         <div id="name">
             <h2>Enter your name:</h2>
-            <input id="nameInput" onkeyup="changeColourBack()">
+            <input id="nameInput" onkeyup="changeColourBack()" maxlength="10">
         </div>
         <div id="host-wrapper">
-            <button onclick="changeHostToInput()">
+            <button onclick="createRoom()">
                 Host Game
             </button>
             <p id="createError"></p>
