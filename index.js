@@ -1,7 +1,10 @@
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(http, {
+    pingTimeout: 3600000,
+    pingInterval: 3600000
+});
 
 rooms = {
     // "roomName":{
