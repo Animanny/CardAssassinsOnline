@@ -105,8 +105,9 @@ io.on('connection', (socket) => {
         if (executedsTarget == agent) {
             agentSocket.emit("winner", agent);
             if (executedSocket) {
-                executedSocket.emit("executed", (agent))
+                executedSocket.emit("executed", (rooms[roomID]["missions"]))
             }
+            return
         }
 
         let mission = {
@@ -119,7 +120,7 @@ io.on('connection', (socket) => {
 
         agentSocket.emit("mission", mission);
         if (executedSocket) {
-            executedSocket.emit("executed", (agent))
+            executedSocket.emit("executed", (rooms[roomID]["missions"]))
         }
     })
 
