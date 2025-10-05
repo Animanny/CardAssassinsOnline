@@ -140,7 +140,26 @@ socket.on('executed', (killer) => {
 })
 
 socket.on('winner', (agent) => {
-    document.querySelector("#execute").style.display = "none";
-    document.querySelector("#confirm").style.display = "none";
-    document.querySelector("#notepadContent").innerHTML = "<h3 style='padding: 0px 50px 0px 50px;'>Congratulations Agent " + agent + ", you've proven yourself as the top agent 😎</h3><h3 style='padding: 0px 50px 0px 50px;'> Please use this opportunity to flex on your friends!</h3><h3><a style = 'color:black; text-decoration: underline black;' href = '/'>Play Again</a></h3> ";
+    document.querySelector("#execute").style.display = "none"
+    document.querySelector("#confirm").style.display = "none"
+    document.querySelector("#notepadContent").innerHTML = "<h3 style='padding: 0px 50px 0px 50px'>Congratulations Agent " + agent + ", you've proven yourself as the top agent 😎</h3><h3 style='padding: 0px 50px 0px 50px'> Please use this opportunity to flex on your friends!</h3><h3><a style = 'color:black text-decoration: underline black' href = '/'>Play Again</a></h3> "
 })
+
+const modal = document.getElementById("howtoModal");
+const link = document.getElementById("howtoLink");
+const closeBtn = document.querySelector(".close");
+
+link.onclick = function (e) {
+    e.preventDefault();
+    modal.style.display = "block";
+};
+
+closeBtn.onclick = function () {
+    modal.style.display = "none";
+};
+
+window.onclick = function (event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};

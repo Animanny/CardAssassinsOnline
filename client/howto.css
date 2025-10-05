@@ -23,6 +23,7 @@ img {
 }
 
 @media only screen and (max-width: 768px) {
+
     h1,
     h2,
     h3,
@@ -32,13 +33,16 @@ img {
         font-family: 'Jost', sans-serif;
         color: black;
     }
+
     #header {
         text-decoration: underline black;
     }
+
     body {
         width: 300px;
         margin-left: calc((100% - 300px)/2);
     }
+
     img {
         width: 288px;
         border: 6px solid black;
