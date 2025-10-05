@@ -143,6 +143,7 @@ button {
 }
 
 @media only screen and (max-width: 768px) {
+
     h1,
     h2,
     h3,
@@ -151,9 +152,11 @@ button {
     p {
         font-family: 'Jost', sans-serif;
     }
+
     #header {
         margin-top: 50px;
     }
+
     #login {
         justify-items: center;
         align-items: center;
@@ -162,11 +165,13 @@ button {
         grid-template-columns: 20% 20% 20% 20% 20%;
         grid-template-rows: 25% 2% 73%;
     }
+
     #name {
         text-align: center;
         grid-column-start: 2;
         grid-column-end: 5;
     }
+
     #name input {
         width: 95%;
         height: 35px;
@@ -174,6 +179,7 @@ button {
         margin-left: -1.5px;
         border: 3px solid #555;
     }
+
     button {
         height: 100%;
         width: 100%;
@@ -183,37 +189,45 @@ button {
         grid-row-start: 3;
         text-align: center;
     }
+
     #host-wrapper {
         grid-column-start: 1;
         grid-column-end: 3;
         height: 100px;
         width: 100%;
     }
+
     #join-wrapper {
         grid-column-start: 4;
         grid-column-end: 6;
         height: 100px;
         width: 100%;
     }
+
     #startButton {
         width: 30%;
     }
+
     #playerList {
         height: 250px;
     }
+
     #waitForStart {
         display: none;
     }
+
     #gameBoard {
         display: none;
         height: 100%;
     }
+
     #notepad {
         height: 100%;
         width: 80%;
         margin-left: 10%;
         border: black 5px solid;
     }
+
     #notepadContent {
         display: block;
         grid-template-rows: 30% 30% 40%;
@@ -224,11 +238,13 @@ button {
         align-items: center;
         text-align: center;
     }
+
     #notepadHeader {
         display: flex;
         justify-content: space-evenly;
         align-content: center;
     }
+
     /* The container */
     .container {
         display: block;
@@ -237,6 +253,7 @@ button {
         font-size: 22px;
         font-family: 'Gochi Hand', cursive;
     }
+
     #words {
         justify-items: center;
         align-items: center;
@@ -244,6 +261,7 @@ button {
         grid-column-end: 4;
         grid-row-start: 3;
     }
+
     #execute {
         width: 200px;
         height: 70px;
@@ -254,6 +272,7 @@ button {
         align-items: center;
         justify-content: space-evenly;
     }
+
     #confirm {
         display: none;
         width: 200px;
@@ -282,4 +301,44 @@ button {
         padding: 10px 10px 10px 10px;
         margin: auto;
     }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 80%;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

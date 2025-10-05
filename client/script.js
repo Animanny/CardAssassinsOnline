@@ -42,7 +42,7 @@ function generateDeadpool(missions) {
 
     console.log("mission")
     console.log(missions)
-    
+
     let deadpoolDiv = document.createElement('div')
     deadpoolDiv.className = "deadpoolDiv"
     missionDivs = []
@@ -52,16 +52,16 @@ function generateDeadpool(missions) {
         let words = missions[key]['words']
         missionDiv = document.createElement('div')
         missionDiv.className = "deadpoolMission"
-        
+
         let playerName = document.createElement('h3')
         playerName.innerText = key
         missionElements.push(playerName)
-        
+
         let targetName = document.createElement('h4')
         targetName.innerText = "Target: " + target
         missionElements.push(targetName)
-        
-        words.forEach( word => {
+
+        words.forEach(word => {
             wordElement = document.createElement('p')
             wordElement.innerHTML = word
             missionElements.push(wordElement)
@@ -189,3 +189,22 @@ socket.on('winner', (agent) => {
     document.querySelector("#confirm").style.display = "none"
     document.querySelector("#notepadContent").innerHTML = "<h3 style='padding: 0px 50px 0px 50px'>Congratulations Agent " + agent + ", you've proven yourself as the top agent 😎</h3><h3 style='padding: 0px 50px 0px 50px'> Please use this opportunity to flex on your friends!</h3><h3><a style = 'color:black text-decoration: underline black' href = '/'>Play Again</a></h3> "
 })
+
+const modal = document.getElementById("howtoModal");
+const link = document.getElementById("howtoLink");
+const closeBtn = document.querySelector(".close");
+
+link.onclick = function (e) {
+    e.preventDefault();
+    modal.style.display = "block";
+};
+
+closeBtn.onclick = function () {
+    modal.style.display = "none";
+};
+
+window.onclick = function (event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
