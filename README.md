@@ -12,7 +12,7 @@ Card Assassins is a social deception game made to play with your friends and fam
 
 The game is actually [a card game](https://www.cardassassins.com/) but there's been no way to play this with friends during quarantine. As a solution, I built this web app to give people the opportunity to play with friends online!
 
-Card Assassins is best played with 4+ players and when you're in the same room (but we don't approve of that right now, please take [COVID-19](https://www.who.int/emergencies/diseases/novel-coronavirus-2019) seriously and abide by you're communities restrictions) OR on a voice/video call!
+Card Assassins is best played with 4+ players and when you're in the same room (but we don't approve of that right now, please take [COVID-19](https://www.who.int/emergencies/diseases/novel-coronavirus-2019) seriously and abide by your communities restrictions) OR on a voice/video call!
 
 
 
