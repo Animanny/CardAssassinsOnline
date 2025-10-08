@@ -41,11 +41,11 @@ io.on('connection', (socket) => {
         // }
         rooms[room["roomID"]] = { "users": {}, "players": [] }
         socket.join(room["roomID"])
-            //users[room["name"]] = socket;
+        //users[room["name"]] = socket;
         rooms[room["roomID"]]["users"][room["name"]] = socket;
         rooms[room["roomID"]]["players"].push(room["name"]);
         rooms[room["roomID"]]["missions"] = {}
-            //players.push(room["name"]);
+        //players.push(room["name"]);
         socket.emit("roomCreated", [true, room])
         socket.emit("players", rooms[room["roomID"]]["players"]);
 
@@ -58,10 +58,8 @@ io.on('connection', (socket) => {
         }
 
         socket.join(room["roomID"])
-            //users[room["name"]] = socket;
         rooms[room["roomID"]]["users"][room["name"]] = socket;
         rooms[room["roomID"]]["players"].push(room["name"]);
-        //players.push(room["name"]);
         socket.emit("roomJoined", [true, room])
         io.to(room["roomID"]).emit("players", rooms[room["roomID"]]["players"]);
     });
@@ -89,6 +87,27 @@ io.on('connection', (socket) => {
             // users[players[i]].emit("mission", secretMessage);
         }
     })
+
+    socket.on("browtf", (roomInfo) => {
+        let roomID = roomInfo["roomID"]
+        let name = roomInfo["name"]
+        if (roomID in rooms == false || rooms[roomID]["players"].includes(name) == false) {
+            socket.emit("roomJoined", [false]);
+            return;
+        }
+        socket.join(roomID)
+        rooms[roomID]["users"][name] = socket;
+        socket.emit("roomJoined", [true, roomInfo])
+        io.to(roomID).emit("players", rooms[roomID]["players"])
+
+        if (name in rooms[roomID]["missions"]) {
+            let mission = {
+                "target": rooms[roomID]["missions"][name]["target"],
+                "words": rooms[roomID]["missions"][name]["words"]
+            }
+            socket.emit("mission", mission);
+        }
+    });
 
     socket.on('execution', (playerInfo) => {
         let agent = playerInfo.name
@@ -127,10 +146,8 @@ io.on('connection', (socket) => {
         if (Object.keys(socket.rooms).length > 1) {
             let roomID = Object.keys(socket.rooms)[1]
             let playerToRemove = getKeyByValue(rooms[roomID]["users"], socket)
-                //delete users.socket;
+            //delete users.socket;
             delete rooms[roomID]["users"][playerToRemove];
-            //players.splice(players.indexOf(playerToRemove), 1);
-            rooms[roomID]["players"].splice(rooms[roomID]["players"].indexOf(playerToRemove), 1);
             if (rooms[roomID]["players"].length < 1) {
                 delete rooms[roomID];
             } else {

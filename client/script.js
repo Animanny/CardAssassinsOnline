@@ -6,6 +6,17 @@ function changeColourBack(ele) {
     document.querySelector("#nameInput").style.border = "3px solid #555";
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const storedRoom = sessionStorage.getItem('roomName');
+
+    if (storedRoom) {
+        const roomData = JSON.parse(storedRoom);
+
+        // Attempt to rejoin the room
+        socket.emit('browtf', roomData);
+    }
+});
+
 function createRoom(ele) {
     // if (event.key === "Enter") {
     //     if (document.getElementById("nameInput").value != "") {
@@ -55,6 +66,7 @@ function joinRoom(ele) {
                 name: document.getElementById("nameInput").value,
                 roomID: document.getElementById("joinID").value,
             };
+            sessionStorage.setItem('roomName', JSON.stringify(roomName));
             socket.emit("joinRoom", roomName);
         } else {
             document.querySelector("#nameInput").style.border =
@@ -64,6 +76,12 @@ function joinRoom(ele) {
 }
 
 socket.on("roomJoined", (ack) => {
+    if (!ack[0]) {
+        sessionStorage.removeItem('roomName');
+        alert("Failed to rejoin room. Please enter your name and room ID again.");
+        return;
+    }
+
     console.log(ack);
     let roomName = ack[1];
     if (ack[0]) {
