@@ -3,7 +3,7 @@
     <img alt="Card Assassins Logo" src="https://i.imgur.com/PtNIiQp.png" width="250" />
   </a>
   <h1 align="center">Everyone is a hitman. Everyone is a target.</h1>
-  <a href="https://cardassassins.herokuapp.com/"><p align="center">Play Now!</p></a>
+  <a href="http://cardassassins.animanny.com/"><p align="center">Play Now!</p></a>
 </p>
 </a>
 
