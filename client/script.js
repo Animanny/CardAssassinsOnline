@@ -13,23 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const roomData = JSON.parse(storedRoom);
 
         // Attempt to rejoin the room
-        socket.emit('browtf', roomData);
+        socket.emit('recon', roomData);
     }
 });
 
 function createRoom(ele) {
-    // if (event.key === "Enter") {
-    //     if (document.getElementById("nameInput").value != "") {
-    //         let roomName = {
-    //             name: document.getElementById("nameInput").value,
-    //             roomID: document.getElementById("hostID").value,
-    //         };
-    //         socket.emit("createRoom", roomName);
-    //     } else {
-    //         document.querySelector("#nameInput").style.border =
-    //             "3px solid #FC100D";
-    //     }
-    // }
 
     if (document.getElementById("nameInput").value != "") {
         let roomName = {
@@ -47,6 +35,8 @@ socket.on("roomCreated", (ack) => {
     console.log(ack);
     let roomName = ack[1];
     if (ack[0]) {
+        sessionStorage.setItem('roomName', JSON.stringify(roomName));
+
         document.querySelector("#roomCode").innerHTML =
             "Room Code: " + roomName["roomID"];
         document.querySelector("#login").style.display = "none";
@@ -64,9 +54,8 @@ function joinRoom(ele) {
         if (document.getElementById("nameInput").value != "") {
             let roomName = {
                 name: document.getElementById("nameInput").value,
-                roomID: document.getElementById("joinID").value,
+                roomID: document.getElementById("joinID").value.trim().toUpperCase(),
             };
-            sessionStorage.setItem('roomName', JSON.stringify(roomName));
             socket.emit("joinRoom", roomName);
         } else {
             document.querySelector("#nameInput").style.border =
@@ -76,15 +65,10 @@ function joinRoom(ele) {
 }
 
 socket.on("roomJoined", (ack) => {
-    if (!ack[0]) {
-        sessionStorage.removeItem('roomName');
-        alert("Failed to rejoin room. Please enter your name and room ID again.");
-        return;
-    }
-
     console.log(ack);
     let roomName = ack[1];
     if (ack[0]) {
+        sessionStorage.setItem('roomName', JSON.stringify(roomName));
         document.querySelector("#roomCode").innerHTML =
             "Room Code: " + roomName["roomID"];
         document.querySelector("#login").style.display = "none";
@@ -94,6 +78,8 @@ socket.on("roomJoined", (ack) => {
     } else {
         document.querySelector("#joinError").innerHTML =
             "Couldn't find that room!";
+
+        sessionStorage.removeItem('roomName');
     }
 });
 
@@ -113,9 +99,7 @@ socket.on("players", (players) => {
 socket.on("mission", (mission) => {
     document.querySelector("#waitForStart").style.display = "none";
     document.querySelector("#gameBoard").style.display = "block";
-    document.querySelector("#agent").innerHTML = document.getElementById(
-        "nameInput"
-    ).value;
+    document.querySelector("#agent").innerHTML = mission["agent"];
     document.querySelector("#target").innerHTML = mission["target"];
     console.log(mission);
     let wordsDiv = document.querySelector("#words");

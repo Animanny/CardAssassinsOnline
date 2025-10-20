@@ -7,12 +7,13 @@ var io = require('socket.io')(http, {
 
 rooms = {
     // "roomName":{
-    //     "users":{},
-    //     "players":[],
+    //     "gameState": "lobby"/"started"
+    //     "users":{ "ani": socket, "bob": socket },
+    //     "players":["ani", "bob"],
     //     "missions":{
-    //          "agent":{
-    //              "target":"",
-    //              "words":[]
+    //          "ani":{
+    //              "target":"bob",
+    //              "words":["word1","word2","word3"]
     //          }
     //      }
     // },
@@ -39,7 +40,7 @@ io.on('connection', (socket) => {
         //     socket.emit("roomCreated", false);
         //     return;
         // }
-        rooms[room["roomID"]] = { "users": {}, "players": [] }
+        rooms[room["roomID"]] = { "gameState": "lobby", "users": {}, "players": [] }
         socket.join(room["roomID"])
         //users[room["name"]] = socket;
         rooms[room["roomID"]]["users"][room["name"]] = socket;
@@ -52,16 +53,35 @@ io.on('connection', (socket) => {
     });
 
     socket.on('joinRoom', (room) => {
-        if (room["roomID"] in rooms == false) {
+        let roomId = room["roomID"].trim().toUpperCase();
+        let name = room["name"]
+
+        if (roomId in rooms == false) {
             socket.emit("roomJoined", false);
             return;
         }
 
-        socket.join(room["roomID"])
-        rooms[room["roomID"]]["users"][room["name"]] = socket;
-        rooms[room["roomID"]]["players"].push(room["name"]);
+
+        if (rooms[roomId]["gameState"] == "started" && room["name"] in rooms[roomId]["missions"]) {
+            socket.join(roomId)
+
+            rooms[roomId]["users"][room["name"]] = socket;
+            socket.emit("roomJoined", [true, room])
+            if (name in rooms[roomId]["missions"]) {
+                let mission = {
+                    "agent": name,
+                    "target": rooms[roomId]["missions"][name]["target"],
+                    "words": rooms[roomId]["missions"][name]["words"]
+                }
+                socket.emit("mission", mission);
+            }
+        }
+
+        socket.join(roomId)
+        rooms[roomId]["users"][room["name"]] = socket;
+        rooms[roomId]["players"].push(room["name"]);
         socket.emit("roomJoined", [true, room])
-        io.to(room["roomID"]).emit("players", rooms[room["roomID"]]["players"]);
+        io.to(roomId).emit("players", rooms[roomId]["players"]);
     });
 
     socket.on('startGame', (roomInfo) => {
@@ -77,6 +97,7 @@ io.on('connection', (socket) => {
             let target = rooms[roomID]["players"][(i + 1) % rooms[roomID]["players"].length]
             let words = generateWords()
             let secretMessage = {
+                "agent": agent,
                 "target": target,
                 "words": words
             }
@@ -84,24 +105,45 @@ io.on('connection', (socket) => {
             rooms[roomID]["missions"][agent]["target"] = target;
             rooms[roomID]["missions"][agent]["words"] = words;
             rooms[roomID]["users"][agent].emit("mission", secretMessage);
-            // users[players[i]].emit("mission", secretMessage);
+            rooms[roomID]["gameState"] = "started"
         }
     })
 
-    socket.on("browtf", (roomInfo) => {
-        let roomID = roomInfo["roomID"]
+    socket.on("recon", (roomInfo) => {
+        console.log("reconnect request recieved: ", roomInfo)
+        // Get reconnect request info
+        let roomID = roomInfo["roomID"].trim().toUpperCase();
         let name = roomInfo["name"]
-        if (roomID in rooms == false || rooms[roomID]["players"].includes(name) == false) {
+
+        // Validate room exists
+        if (roomID in rooms == false) {
             socket.emit("roomJoined", [false]);
             return;
         }
+
+        // If the game has already started
+        // and this user wasn't a part of it
+        // block they ahh
+        if (rooms[roomID].gameState == "started" && !rooms[roomID]["players"].includes(name)) {
+            socket.emit("roomJoined", [false]);
+            return;
+        }
+
+        // Rejoin the rooms
         socket.join(roomID)
         rooms[roomID]["users"][name] = socket;
+        rooms[roomID]["players"].push(name);
         socket.emit("roomJoined", [true, roomInfo])
-        io.to(roomID).emit("players", rooms[roomID]["players"])
+
+        if (rooms[roomID]["gameState"] == "lobby") {
+            io.to(roomID).emit("players", rooms[roomID]["players"])
+            return;
+        }
+
 
         if (name in rooms[roomID]["missions"]) {
             let mission = {
+                "agent": name,
                 "target": rooms[roomID]["missions"][name]["target"],
                 "words": rooms[roomID]["missions"][name]["words"]
             }
@@ -144,10 +186,17 @@ io.on('connection', (socket) => {
 
     socket.on('disconnecting', () => {
         if (Object.keys(socket.rooms).length > 1) {
+
             let roomID = Object.keys(socket.rooms)[1]
+
+            if (rooms[roomID]["gameState"] == "started") {
+                return;
+            }
+
             let playerToRemove = getKeyByValue(rooms[roomID]["users"], socket)
             //delete users.socket;
             delete rooms[roomID]["users"][playerToRemove];
+            rooms[roomID]["players"].splice(rooms[roomID]["players"].indexOf(playerToRemove), 1);
             if (rooms[roomID]["players"].length < 1) {
                 delete rooms[roomID];
             } else {
